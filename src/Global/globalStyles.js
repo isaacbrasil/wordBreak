@@ -19,6 +19,10 @@ const GlobalStyle = createGlobalStyle`
   --lightblue: #4299e1;
   --whitebody: #f6f6f7;
   --bgcolor: #1f212b;
+  --inset: env(safe-area-inset-top);
+  --max-size: 720px;
+  --kbd-height: min(100em/2.15,25vh);
+  --board-width: min(80em,(100vh - var(--inset) - var(--kbd-height) - 12vh - 10vh) * 5/6);
 }
 `;
 

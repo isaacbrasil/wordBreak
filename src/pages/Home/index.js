@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
+import { FiSettings } from "react-icons/fi";
+import { MdOutlineBackspace, MdOutlineHelpCenter } from "react-icons/md";
+import "react-simple-keyboard/build/css/index.css";
 import styled from "styled-components";
 import { Input } from "../../components/Input";
-import { MdOutlineHelpCenter } from "react-icons/md";
-import { FiSettings } from "react-icons/fi";
-import Keyboard from "react-simple-keyboard";
-import "react-simple-keyboard/build/css/index.css";
 
 export function Home() {
   const inputArray = [
@@ -25,27 +24,25 @@ export function Home() {
     },
   ];
 
-  async function fetchWords() {
-    const response = await fetch("https://significado.herokuapp.com/livro");
-    console.log(response);
-  }
-
   useEffect(() => {
     fetchWords();
   }, []);
 
-  const onChange = (e) => {
-    console.log("Input changed", e.target.value);
+  async function fetchWords() {
+    const response = await fetch(
+      "https://significado.herokuapp.com/synonyms/livro"
+    );
+    console.log(response);
+  }
+  const handleKeyClick = (e) => {
+    console.log(e.target.value);
   };
 
-  const onKeyPress = (button) => {
-    console.log("Button pressed", button);
-  };
   return (
     <>
       <Header>
         <HeaderContainer>
-          <Button onClick={console.log("teste")}>
+          <Button onClick={() => console.log("Aqui ira modal de Tutorial")}>
             <HelpIcon>
               <MdOutlineHelpCenter />
             </HelpIcon>
@@ -61,19 +58,130 @@ export function Home() {
           </Button>
         </HeaderContainer>
       </Header>
-      <Container>
-        {inputArray.map((item, index) => (
-          <div>{item.input}</div>
-        ))}
-        <KeyboardContainer>
-          <KeyboardWidth>
-            <Keyboard onChange={onChange} onKeyPress={onKeyPress} />
-          </KeyboardWidth>
-        </KeyboardContainer>
-      </Container>
+      <GameContainer>
+        <Main>
+          <Container>
+            {inputArray.map((item, index) => (
+              <div key={index}>{item.input}</div>
+            ))}
+          </Container>
+        </Main>
+        <KbdContainer>
+          <Kbd>
+            <KbdKey onClick={(e) => handleKeyClick()}>Q</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>W</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>E</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>R</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>T</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>Y</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>U</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>I</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>O</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>P</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>A</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>S</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>D</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>F</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>G</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>H</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>J</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>K</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>L</KbdKey>
+            <KbdKeyBckSpc>
+              <MdOutlineBackspace />
+            </KbdKeyBckSpc>
+            <KbdKey onClick={(e) => handleKeyClick()}>Z</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>X</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>C</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>V</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>B</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>N</KbdKey>
+            <KbdKey onClick={(e) => handleKeyClick()}>M</KbdKey>
+            <KbdKeyEnter>ENTER</KbdKeyEnter>
+          </Kbd>
+        </KbdContainer>
+      </GameContainer>
     </>
   );
 }
+export const GameContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+  width: 100%;
+`;
+export const Main = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-shrink: 50;
+  justify-content: center;
+  margin: 1vh 0;
+  overflow: auto;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  width: 100%;
+`;
+export const KbdContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+export const Kbd = styled.div`
+  grid-gap: 1em 1em;
+  box-sizing: border-box;
+  display: grid;
+  flex-shrink: 0;
+  grid-template-columns: repeat(32, 1fr);
+  grid-template-rows: repeat(3, 33%);
+  height: var(--kbd-height);
+  padding: 0 3em 3em;
+  min-width: 5%;
+`;
+export const KbdKeyBckSpc = styled.div`
+  align-items: center;
+  background-color: #4c4347;
+  border: none;
+  border-radius: 8%;
+  color: #fafaff;
+  font-size: 30px;
+  padding: 20px;
+  cursor: pointer;
+  display: flex;
+  font-weight: 700;
+  grid-column: span 3;
+  justify-content: center;
+`;
+export const KbdKeyEnter = styled.div`
+  align-items: center;
+  background-color: #4c4347;
+  border: none;
+  border-radius: 8%;
+  color: #fafaff;
+  font-size: 20px;
+  padding: 20px;
+  cursor: pointer;
+  display: flex;
+  font-weight: 700;
+  grid-column: span 5;
+  justify-content: center;
+`;
+export const KbdKey = styled.div`
+  align-items: center;
+  background-color: #4c4347;
+  border: none;
+  border-radius: 8%;
+  color: #fafaff;
+  cursor: pointer;
+  display: flex;
+  font-size: min(4em, calc(var(--kbd-height) / 6));
+  font-weight: 500;
+  grid-column: span 3;
+  justify-content: center;
+`;
 
 export const Header = styled.div`
   display: flex;
